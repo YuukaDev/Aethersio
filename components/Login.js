@@ -33,7 +33,17 @@ function Login() {
     <div className="App">
       <h3> GitHub Login </h3>
 
-      <button onClick={handleLogin}>Login With GitHub</button>
+      <button
+        onClick={() => {
+          if (user) {
+            console.log("u are already logged in");
+          } else {
+            handleLogin();
+          }
+        }}
+      >
+        Login With GitHub
+      </button>
 
       <h4> User Logged In: {user?.email}</h4>
 

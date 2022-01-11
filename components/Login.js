@@ -10,6 +10,10 @@ import { auth } from "../auth/firebase";
 function Login() {
   const [user, setUser] = useState({});
 
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
   const handleLogin = async () => {
     try {
       const user = await signInWithPopup(auth, new GithubAuthProvider());
@@ -22,6 +26,7 @@ function Login() {
 
   const handleLogout = async () => {
     await signOut(auth);
+    console.log(`User is signed out ${user.email}`);
   };
 
   return (
@@ -30,7 +35,7 @@ function Login() {
 
       <button onClick={handleLogin}>Login With GitHub</button>
 
-      <h4> User Logged In: {user.email}</h4>
+      <h4> User Logged In: {user?.email}</h4>
 
       <button onClick={handleLogout}> Sign Out </button>
     </div>

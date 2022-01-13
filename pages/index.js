@@ -1,28 +1,48 @@
-import { Heading, Button, Container, Input, Stack } from "@chakra-ui/react";
 import { useState } from "react";
-import ChatContent from "../components/ChatContent";
+
+import Login from "../components/Login/Login";
+import ChatContent from "../components/Chat/ChatContent";
 
 import io from "socket.io-client";
+import Chat from "./chat";
 const socket = io.connect("http://localhost:3001");
 
 export default function Home() {
+  //const [room, setRoom] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
-  const [showChat, setShowChat] = useState(false);
-
-  const joinRoom = async () => {
-    try {
-      if (username !== "" && room !== "") {
-        socket.emit("join_room", room);
-        setShowChat(true);
-      }
-    } catch (err) {
-      console.log(err);
+  const joinRoom = () => {
+    if (username !== "") {
+      console.log("showing chat");
+      setIsLoggedIn(true);
+      setUsername(username);
     }
   };
+
   return (
-    <Container>
-      {!showChat ? (
+    <>
+      {username ? (
+        <ChatContent socket={socket} username={username} room={room} />
+      ) : (
+        <Login username={username} />
+      )}
+    </>
+  );
+}
+
+/*
+  const handleLogout = async () => {
+    if (user) {
+      await signOut(auth);
+      console.log(`User is signed out ${user.email}`);
+    } else {
+      console.log("user is not logged in");
+    }
+  };
+*/
+
+/*
+{!showChat ? (
         <Stack spacing={3}>
           <Heading>Join a Chat</Heading>
           <Input
@@ -65,6 +85,4 @@ export default function Home() {
       ) : (
         <ChatContent socket={socket} username={username} room={room} />
       )}
-    </Container>
-  );
-}
+      */

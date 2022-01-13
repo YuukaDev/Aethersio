@@ -5,14 +5,7 @@ import "../styles/style.css";
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider resetCSS theme={customTheme}>
-      <ColorModeProvider
-        options={{
-          initialColorMode: "blue",
-          useSystemColorMode: true,
-        }}
-      >
         <Component {...pageProps} />
-      </ColorModeProvider>
     </ChakraProvider>
   );
 }

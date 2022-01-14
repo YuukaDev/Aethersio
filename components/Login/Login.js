@@ -18,8 +18,11 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [user, setUser] = useState({});
-  onAuthStateChanged(auth, (currentUser) => {
+  onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
+    const url = await fetch(`https://api.github.com/user/YuukaDev`);
+    const random = await url.json();
+    console.log(random);
     setUsername(currentUser?.email);
   });
 
@@ -87,7 +90,7 @@ function Login() {
           </Button>
         </HStack>
       ) : (
-        <Main username={user?.email} />
+        <Main username={user?.additionalUserInfo} />
       )}
     </>
   );

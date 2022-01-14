@@ -11,6 +11,7 @@ import { FaGithub } from "react-icons/fa";
 import ChatContent from "../Chat/ChatContent";
 
 import io from "socket.io-client";
+import Main from "../Main/Main";
 const socket = io.connect("http://localhost:3001");
 
 function Login() {
@@ -25,6 +26,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       const user = await signInWithPopup(auth, new GithubAuthProvider());
+      console.log(user);
       if (user) {
         console.log("Already logged in");
         setIsLoggedIn(true);
@@ -85,10 +87,15 @@ function Login() {
           </Button>
         </HStack>
       ) : (
-        <ChatContent username={username} socket={socket} />
+        <Main
+          username={user.email}
+          imageSrc={user.photoURL}
+        />
       )}
     </>
   );
 }
 
 export default Login;
+
+//<ChatContent username={username} socket={socket} />

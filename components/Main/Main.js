@@ -1,16 +1,14 @@
 import React from "react";
 import ChatContent from "../Chat/ChatContent";
-import Room from "../Rooms/Room";
-
+import Layout from "../Layout/Layout";
 import io from "socket.io-client";
 import { Heading } from "@chakra-ui/react";
 const socket = io.connect("http://localhost:3001");
 
-function Main() {
+function Main({ username, imageSrc }) {
   return (
     <div>
-      <Heading>Hello World</Heading>
-      <ChatContent socket={socket} room={room} />
+      <Layout username={username} imageSrc={imageSrc} />
     </div>
   );
 }

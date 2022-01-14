@@ -8,12 +8,15 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRouter } from "next/router";
+
 import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:3001");
 
 function Room() {
   const [room, setRoom] = useState("");
+  const router = useRouter();
   const joinRoom = () => {
     console.log(room);
     socket.emit("join_room", room);
@@ -35,7 +38,13 @@ function Room() {
               setRoom(e.target.value);
             }}
           />
-          <Button onClick={joinRoom}>Join a Room</Button>
+          <Button
+            onClick={() => {
+              router.push("/chat");
+            }}
+          >
+            Join This Room
+          </Button>
         </Flex>
       </Box>
     </Container>

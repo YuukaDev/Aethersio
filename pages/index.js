@@ -1,33 +1,13 @@
 import { useState } from "react";
 
 import Login from "../components/Login/Login";
-import ChatContent from "../components/Chat/ChatContent";
-
-import io from "socket.io-client";
-import Chat from "./chat";
-const socket = io.connect("http://localhost:3001");
+import Main from "../components/Main/Main";
 
 export default function Home() {
   //const [room, setRoom] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const joinRoom = () => {
-    if (username !== "") {
-      console.log("showing chat");
-      setIsLoggedIn(true);
-      setUsername(username);
-    }
-  };
+  const showChat = false;
 
-  return (
-    <>
-      {username ? (
-        <ChatContent socket={socket} username={username} room={room} />
-      ) : (
-        <Login username={username} />
-      )}
-    </>
-  );
+  return <>{!showChat ? <Login /> : <Main />}</>;
 }
 
 /*

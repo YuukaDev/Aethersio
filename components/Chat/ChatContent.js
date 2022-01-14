@@ -36,10 +36,11 @@ function ChatContent({ socket, username, room }) {
         {messageList.map((messageContent, index) => {
           return (
             <div
+              key={index}
               className="message"
               id={username === messageContent.author ? "you" : "other"}
             >
-              <div key={index}>
+              <div>
                 <div className="message-content">
                   <p>{messageContent.message}</p>
                 </div>

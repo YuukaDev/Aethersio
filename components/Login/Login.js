@@ -8,7 +8,7 @@ import {
 import { auth } from "../../auth/firebase";
 import { Button, HStack, Input } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
-import ChatContent from "../Chat/ChatContent";
+//import ChatContent from "../Chat/ChatContent";
 
 import io from "socket.io-client";
 import Main from "../Main/Main";
@@ -17,7 +17,7 @@ const socket = io.connect("http://localhost:3001");
 function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [data, setData] = useState({});
+  const [base, setBase] = useState({});
   const [user, setUser] = useState({});
   onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
@@ -28,6 +28,7 @@ function Login() {
     try {
       const url = await fetch(`https://api.github.com/user/${query}`);
       const random = await url.json();
+      setBase(random);
       console.log(random);
     } catch (err) {
       console.log(err);
@@ -98,12 +99,25 @@ function Login() {
           >
             Logout
           </Button>
-          <Input
-            onChange={(e) => {
+          <form
+            autoComplete="off"
+            onSubmit={(e) => {
               e.preventDefault();
-              setData(e.target.value);
+              const username = e.target.elements.usernameInput.value;
+              if (!username) {
+                return alert("Please enter username");
+              } else {
+                return getUsersData(username);
+              }
             }}
-          />
+          >
+            <Input
+              type="text"
+              id="usernameInput"
+              placeholder="Enter a username..."
+            />
+            <button type="submit">Submit</button>
+          </form>
         </HStack>
       ) : (
         <Main username={user?.additionalUserInfo} />

@@ -87,10 +87,7 @@ function Login() {
           </Button>
         </HStack>
       ) : (
-        <Main
-          username={user.email}
-          imageSrc={user.photoURL}
-        />
+        <Main username={user?.email} />
       )}
     </>
   );

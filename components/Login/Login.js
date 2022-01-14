@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   signInWithPopup,
   GithubAuthProvider,
@@ -49,6 +49,8 @@ function Login() {
       console.log("User is not logged in");
     }
   };
+
+  useEffect(() => {});
 
   return (
     <>

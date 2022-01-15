@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   signInWithPopup,
   GithubAuthProvider,
@@ -9,6 +9,7 @@ import { auth } from "../../auth/firebase";
 import { Button, HStack } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
 import { Context } from "../../context";
+import { useRouter } from "next/router";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -17,6 +18,7 @@ import Main from "../Main/Main";
 const socket = io.connect("http://localhost:3001");
 
 function Login() {
+  const router = useRouter();
   const [currentUser] = useAuthState(auth);
   const {
     username,
@@ -32,7 +34,7 @@ function Login() {
     setUser(currentUser);
   });
 
-  const handleLogin = async (username) => {
+  const handleLogin = async () => {
     try {
       const user = await signInWithPopup(auth, new GithubAuthProvider());
       const url = await fetch(
@@ -44,7 +46,6 @@ function Login() {
       console.log(user);
       console.log(currentUser);
       setBase(random);
-      setUsername(random.login);
       setUser(user);
       setSecret(user._tokenResponse.screenNam);
     } catch (error) {
@@ -64,7 +65,7 @@ function Login() {
   return (
     <>
       {currentUser ? (
-        <Main username={username} imageSrc={base.avatar_url} />
+        <Main username={base.login} imageSrc={base.avatar_url} />
       ) : (
         <HStack
           flexDirection="column"

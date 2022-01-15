@@ -42,7 +42,7 @@ function Login() {
 
       setBase(random);
       setUsername(random.login);
-      setUser(user);
+      setUser(random);
     } catch (error) {
       console.log(error.message);
     }

@@ -115,7 +115,7 @@ function Login() {
           </form>
         </HStack>
       ) : (
-        <Main username={username} />
+        <Main username={user.providerData.displayName} />
       )}
     </>
   );

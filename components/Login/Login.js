@@ -10,11 +10,14 @@ import { Button, HStack } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
 import { Context } from "../../context";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import io from "socket.io-client";
 import Main from "../Main/Main";
 const socket = io.connect("http://localhost:3001");
 
 function Login() {
+  const [currentUser] = useAuthState(auth);
   const {
     username,
     setUsername,
@@ -39,7 +42,7 @@ function Login() {
 
       console.log(random);
       console.log(user);
-
+      console.log(currentUser);
       setBase(random);
       setUsername(random.login);
       setUser(user);
@@ -50,7 +53,7 @@ function Login() {
   };
 
   const handleLogout = async () => {
-    if (user) {
+    if (currentUser) {
       await signOut(auth);
       console.log(`User is signed out ${user?.email}`);
     } else {
@@ -60,7 +63,9 @@ function Login() {
 
   return (
     <>
-      {!user ? (
+      {currentUser ? (
+        <Main username={username} imageSrc={base.avatar_url} />
+      ) : (
         <HStack
           flexDirection="column"
           height="100vh"
@@ -97,8 +102,6 @@ function Login() {
             Logout
           </Button>
         </HStack>
-      ) : (
-        <Main username={username} imageSrc={base.avatar_url} />
       )}
     </>
   );

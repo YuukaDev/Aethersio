@@ -21,24 +21,19 @@ function Login() {
   const [user, setUser] = useState({});
   onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
-    setUsername(currentUser?.email);
   });
-
-  const getUsersData = async (query) => {
-    try {
-      const url = await fetch(`https://api.github.com/user/${query}`);
-      const random = await url.json();
-      setBase(random);
-      console.log(random);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleLogin = async () => {
     try {
       const user = await signInWithPopup(auth, new GithubAuthProvider());
+      const url = await fetch(`https://api.github.com/users/${user}`);
+      const random = await url.json();
+
+      console.log(random);
       console.log(user);
+
+      setBase(random);
+      setUsername(random.login);
       if (user) {
         console.log("Already logged in");
         setIsLoggedIn(true);
@@ -63,7 +58,7 @@ function Login() {
 
   return (
     <>
-      {user ? (
+      {!user ? (
         <HStack
           flexDirection="column"
           height="100vh"
@@ -107,7 +102,7 @@ function Login() {
               if (!username) {
                 return alert("Please enter username");
               } else {
-                return getUsersData(username);
+                return getUser(username);
               }
             }}
           >
@@ -120,7 +115,7 @@ function Login() {
           </form>
         </HStack>
       ) : (
-        <Main username={user?.additionalUserInfo} />
+        <Main username={username} />
       )}
     </>
   );

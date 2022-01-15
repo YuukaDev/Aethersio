@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import {
   signInWithPopup,
   GithubAuthProvider,
@@ -8,21 +8,25 @@ import {
 import { auth } from "../../auth/firebase";
 import { Button, HStack } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
-import { useRouter } from "next/router";
+import { Context } from "../../context";
 
 import io from "socket.io-client";
 import Main from "../Main/Main";
 const socket = io.connect("http://localhost:3001");
 
 function Login() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [base, setBase] = useState({});
-  const [user, setUser] = useState(null);
-  const router = useRouter();
+  const {
+    username,
+    setUsername,
+    secret,
+    setSecret,
+    user,
+    setUser,
+    base,
+    setBase,
+  } = useContext(Context);
   onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
-    setIsLoggedIn(true);
   });
 
   const handleLogin = async (username) => {
@@ -39,7 +43,6 @@ function Login() {
       setBase(random);
       setUsername(random.login);
       setUser(user);
-      router.push("/chat");
     } catch (error) {
       console.log(error.message);
     }
@@ -53,8 +56,6 @@ function Login() {
       console.log("User is not logged in");
     }
   };
-
-  useEffect(() => {});
 
   return (
     <>
@@ -96,7 +97,7 @@ function Login() {
           </Button>
         </HStack>
       ) : (
-        <Main username={10} imageSrc={base.avatar_url} />
+        <Main username={username} imageSrc={base.avatar_url} />
       )}
     </>
   );

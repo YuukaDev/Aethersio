@@ -42,7 +42,8 @@ function Login() {
 
       setBase(random);
       setUsername(random.login);
-      setUser(random);
+      setUser(user);
+      setSecret(user._tokenResponse.screenNam);
     } catch (error) {
       console.log(error.message);
     }

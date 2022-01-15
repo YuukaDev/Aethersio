@@ -18,7 +18,7 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [base, setBase] = useState({});
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
   });
@@ -26,7 +26,9 @@ function Login() {
   const handleLogin = async (username) => {
     try {
       const user = await signInWithPopup(auth, new GithubAuthProvider());
-      const url = await fetch(`https://api.github.com/users/${username}`);
+      const url = await fetch(
+        `https://api.github.com/users/${user._tokenResponse.screenName}`
+      );
       const random = await url.json();
 
       console.log(random);
@@ -115,7 +117,7 @@ function Login() {
           </form>
         </HStack>
       ) : (
-        <Main username={user.providerData.displayName} />
+        <Main username={username} imageSrc={base.avatar_url} />
       )}
     </>
   );

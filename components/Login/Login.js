@@ -23,10 +23,10 @@ function Login() {
     setUser(currentUser);
   });
 
-  const handleLogin = async () => {
+  const handleLogin = async (username) => {
     try {
       const user = await signInWithPopup(auth, new GithubAuthProvider());
-      const url = await fetch(`https://api.github.com/users/${user}`);
+      const url = await fetch(`https://api.github.com/users/${username}`);
       const random = await url.json();
 
       console.log(random);

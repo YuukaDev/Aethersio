@@ -21,6 +21,7 @@ function Login() {
   const [user, setUser] = useState(null);
   onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
+    setIsLoggedIn(true);
   });
 
   const handleLogin = async (username) => {
@@ -36,12 +37,7 @@ function Login() {
 
       setBase(random);
       setUsername(random.login);
-      if (user) {
-        console.log("Already logged in");
-        setIsLoggedIn(true);
-      } else {
-        setUser(user);
-      }
+      setUser(user);
     } catch (error) {
       console.log(error.message);
     }
@@ -60,7 +56,7 @@ function Login() {
 
   return (
     <>
-      {!user ? (
+      {!isLoggedIn ? (
         <HStack
           flexDirection="column"
           height="100vh"
@@ -96,25 +92,6 @@ function Login() {
           >
             Logout
           </Button>
-          <form
-            autoComplete="off"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const username = e.target.elements.usernameInput.value;
-              if (!username) {
-                return alert("Please enter username");
-              } else {
-                return getUser(username);
-              }
-            }}
-          >
-            <Input
-              type="text"
-              id="usernameInput"
-              placeholder="Enter a username..."
-            />
-            <button type="submit">Submit</button>
-          </form>
         </HStack>
       ) : (
         <Main username={username} imageSrc={base.avatar_url} />

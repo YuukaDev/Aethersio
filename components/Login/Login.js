@@ -6,9 +6,9 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../auth/firebase";
-import { Button, HStack, Input } from "@chakra-ui/react";
+import { Button, HStack } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
-//import ChatContent from "../Chat/ChatContent";
+import { useRouter } from "next/router";
 
 import io from "socket.io-client";
 import Main from "../Main/Main";
@@ -19,6 +19,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [base, setBase] = useState({});
   const [user, setUser] = useState(null);
+  const router = useRouter();
   onAuthStateChanged(auth, async (currentUser) => {
     setUser(currentUser);
     setIsLoggedIn(true);
@@ -38,6 +39,7 @@ function Login() {
       setBase(random);
       setUsername(random.login);
       setUser(user);
+      router.push("/chat");
     } catch (error) {
       console.log(error.message);
     }
@@ -56,7 +58,7 @@ function Login() {
 
   return (
     <>
-      {!isLoggedIn ? (
+      {!user ? (
         <HStack
           flexDirection="column"
           height="100vh"
@@ -94,7 +96,7 @@ function Login() {
           </Button>
         </HStack>
       ) : (
-        <Main username={username} imageSrc={base.avatar_url} />
+        <Main username={10} imageSrc={base.avatar_url} />
       )}
     </>
   );

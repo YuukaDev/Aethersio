@@ -1,10 +1,10 @@
 //import ChatContent from "../components/Chat/ChatContent";
 import io from "socket.io-client";
-import AnotherChat from "../components/AnotherChat/AnotherChat";
+import Main from "../components/Main/Main";
 export default function Chat() {
   return (
     <>
-      <AnotherChat />
+      <Main />
     </>
   );
 }

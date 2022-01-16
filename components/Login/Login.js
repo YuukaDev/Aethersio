@@ -14,8 +14,6 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import io from "socket.io-client";
-import Main from "../Main/Main";
-const socket = io.connect("http://localhost:3001");
 
 function Login() {
   const [currentUser] = useAuthState(auth);

@@ -20,7 +20,10 @@ function Layout() {
     <VStack height="100vh" bg="black" width="20%" overflow="hidden">
       <Room />
       <Divider />
-      <UserProfile username={base.login} imageSrc={base.avatar_url} />
+      <UserProfile
+        username={user?.email}
+        imageSrc={user?.photoURL}
+      />
     </VStack>
   );
 }

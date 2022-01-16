@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
+  onAuthStateChanged,
   signInWithPopup,
   GithubAuthProvider,
-  onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 import { auth } from "../../auth/firebase";
@@ -18,9 +18,13 @@ import Main from "../Main/Main";
 const socket = io.connect("http://localhost:3001");
 
 function Login() {
-  const router = useRouter();
   const [currentUser] = useAuthState(auth);
   const { setSecret, user, setUser, base, setBase } = useContext(Context);
+  const router = useRouter();
+
+  
+
+
 
   const handleLogin = async () => {
     try {
@@ -34,7 +38,7 @@ function Login() {
       console.log(user);
 
       setBase(random);
-      setUser(user);
+      setUser(currentUser);
       setSecret(user._tokenResponse.screenNam);
     } catch (error) {
       console.log(error.message);
@@ -52,46 +56,43 @@ function Login() {
 
   return (
     <>
-      {currentUser ? (
-        <Main username={base.login} imageSrc={base.avatar_url} />
-      ) : (
-        <HStack
-          flexDirection="column"
-          height="100vh"
+      <HStack
+        flexDirection="column"
+        height="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button
           display="flex"
-          justifyContent="center"
-          alignItems="center"
+          padding="2%"
+          gap="10px"
+          colorScheme="purple"
+          variant="outline"
+          fontSize="1.5em"
+          className="learn-more"
+          position="relative"
+          cursor="pointer"
+          onClick={() => {
+            if (user) {
+              console.log("u are already logged in");
+            } else {
+              handleLogin();
+              router.push("/chat");
+            }
+          }}
         >
-          <Button
-            display="flex"
-            padding="2%"
-            gap="10px"
-            colorScheme="purple"
-            variant="outline"
-            fontSize="1.5em"
-            className="learn-more"
-            position="relative"
-            cursor="pointer"
-            onClick={() => {
-              if (user) {
-                console.log("u are already logged in");
-              } else {
-                handleLogin();
-              }
-            }}
-          >
-            Login With GitHub <FaGithub />
-          </Button>
-          <Button
-            onClick={handleLogout}
-            style={{
-              marginTop: "20px",
-            }}
-          >
-            Logout
-          </Button>
-        </HStack>
-      )}
+          Login With GitHub <FaGithub />
+        </Button>
+        <Button
+          onClick={handleLogout}
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          Logout
+        </Button>
+      </HStack>
     </>
   );
 }

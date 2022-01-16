@@ -44,7 +44,7 @@ function Login() {
 
       console.log(random);
       console.log(user);
-      console.log(currentUser);
+
       setBase(random);
       setUser(user);
       setSecret(user._tokenResponse.screenNam);

@@ -20,19 +20,7 @@ const socket = io.connect("http://localhost:3001");
 function Login() {
   const router = useRouter();
   const [currentUser] = useAuthState(auth);
-  const {
-    username,
-    setUsername,
-    secret,
-    setSecret,
-    user,
-    setUser,
-    base,
-    setBase,
-  } = useContext(Context);
-  onAuthStateChanged(auth, async (currentUser) => {
-    setUser(currentUser);
-  });
+  const { setSecret, user, setUser, base, setBase } = useContext(Context);
 
   const handleLogin = async () => {
     try {

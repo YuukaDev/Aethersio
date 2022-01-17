@@ -7,24 +7,28 @@ export const Context = createContext();
 export const ContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [base, setBase] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = async () => {
     try {
-      const user = await signInWithPopup(auth, new GithubAuthProvider());
-      setUser(user);
+      const { currentUser } = await signInWithPopup(auth, new GithubAuthProvider());
+      const url = await fetch(
+        `https://api.github.com/users/${user._tokenResponse.screenName}`
+      );
+      const random = await url.json();
+      setBase(random);
+      setUser(currentUser);
+      setLoggedIn(true);
+
+      console.log(random);
       console.log(user);
     } catch (error) {
       console.log(error.message);
     }
   };
-
   const handleLogout = async () => {
-    if (user != null) {
-      console.log("User is not logged in");
-    } else {
-      await signOut(auth);
-      console.log(`User is signed out ${user?.email}`);
-    }
+    await signOut(auth);
+    console.log(`User is signed out ${user?.email}`);
   };
 
   const value = {
@@ -34,6 +38,7 @@ export const ContextProvider = (props) => {
     setBase,
     handleLogin,
     handleLogout,
+    loggedIn,
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;

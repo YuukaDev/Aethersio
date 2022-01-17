@@ -4,7 +4,7 @@ import Main from "../components/Main/Main";
 export default function Chat() {
   return (
     <>
-      <Main username={"Vuk"} />
+      <h1>Hello</h1>
     </>
   );
 }

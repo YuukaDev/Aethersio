@@ -1,21 +1,15 @@
-import { useContext, useState } from "react";
-import {
-  onAuthStateChanged,
-  signInWithPopup,
-  GithubAuthProvider,
-  signOut,
-} from "firebase/auth";
-import { auth } from "../../auth/firebase";
+import { useContext } from "react";
+
 import { Button, HStack } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
 import { Context } from "../../context";
 import { useRouter } from "next/router";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
 
 function Login() {
-  const [currentUser] = useAuthState(auth);
+  //const [currentUser] = useAuthState(auth);
+  const { handleLogin, handleLogout, user } = useContext(Context);
   const router = useRouter();
 
   return (

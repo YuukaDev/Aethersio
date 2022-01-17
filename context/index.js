@@ -6,6 +6,7 @@ export const Context = createContext();
 
 export const ContextProvider = (props) => {
   const [user, setUser] = useState(null);
+  const [anotherUser, setAnotherUser] = useState({});
   const [base, setBase] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -14,7 +15,9 @@ export const ContextProvider = (props) => {
     setBase,
     loggedIn,
     setUser,
-    user
+    user,
+    anotherUser,
+    setAnotherUser,
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;

@@ -16,35 +16,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 function Login() {
   const [currentUser] = useAuthState(auth);
-  const [user, setUser] = useState(null);
   const router = useRouter();
-
-  const handleLogin = async () => {
-    try {
-      const user = await signInWithPopup(auth, new GithubAuthProvider());
-      /*
-      const url = await fetch(
-        `https://api.github.com/users/${user._tokenResponse.screenName}`
-      );
-      const random = await url.json();
-      setBase(random);
-      console.log(random);
-      */
-      setUser(user);
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleLogout = async () => {
-    if (user != null) {
-      console.log("User is not logged in");
-    } else {
-      await signOut(auth);
-      console.log(`User is signed out ${user?.email}`);
-    }
-  };
 
   return (
     <>

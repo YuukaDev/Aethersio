@@ -29,9 +29,12 @@ function Login() {
     setUser,
     base,
     setBase,
+    setAnotherUser,
+    anotherUser,
   } = useContext(Context);
   onAuthStateChanged(auth, async (currentUser) => {
-    setUser(currentUser);
+    setAnotherUser(currentUser);
+    console.log(currentUser);
   });
 
   const handleLogin = async () => {
@@ -42,12 +45,8 @@ function Login() {
       );
       const random = await url.json();
 
-      console.log(random);
-      console.log(user);
-
       setBase(random);
-      setUser(user);
-      setSecret(user._tokenResponse.screenName);
+      console.log(currentUser);
     } catch (error) {
       console.log(error.message);
     }
@@ -65,10 +64,7 @@ function Login() {
   return (
     <>
       {currentUser ? (
-        <Main
-          username={user?.email}
-          imageSrc={user?.photoURL}
-        />
+        <Main username={anotherUser.email} imageSrc={anotherUser.photoURL} />
       ) : (
         <HStack
           flexDirection="column"

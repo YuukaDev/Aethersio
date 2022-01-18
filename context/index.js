@@ -4,15 +4,34 @@ import { auth } from "../auth/firebase";
 
 export const Context = createContext();
 
-export const ContextProvider = (props) => {
+export const ContextProvider = ({ children }) => {
   const [userCred, setUserCred] = useState(null);
-  //const [anotherUser, setAnotherUser] = useState({});
   const [base, setBase] = useState({});
+
+  const handleLogin = async () => {
+    try {
+      const userData = await signInWithPopup(auth, new GithubAuthProvider());
+      setUserCred(userData);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleLogout = async () => {
+    if (user) {
+      await signOut(auth);
+      console.log(`User is signed out ${user?.email}`);
+    } else {
+      console.log("User is not logged in");
+    }
+  };
 
   const value = {
     userCred,
     setUserCred,
+    handleLogin,
+    handleLogout,
   };
 
-  return <Context.Provider value={value}>{props.children}</Context.Provider>;
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 };

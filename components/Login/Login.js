@@ -19,41 +19,23 @@ const socket = io.connect("http://localhost:3001");
 
 function Login() {
   const router = useRouter();
-  const [currentUser] = useAuthState(auth);
-  const {
-    username,
-    setUsername,
-    secret,
-    setSecret,
-    user,
-    setUser,
-    base,
-    setBase,
-    setAnotherUser,
-    anotherUser,
-  } = useContext(Context);
-  onAuthStateChanged(auth, async (currentUser) => {
-    setAnotherUser(currentUser);
-    console.log(currentUser);
-  });
+  const [user, loading, error] = useAuthState(auth);
+  const { userCred, setUserCred } = useContext(Context);
 
   const handleLogin = async () => {
     try {
-      const user = await signInWithPopup(auth, new GithubAuthProvider());
-      const url = await fetch(
-        `https://api.github.com/users/${user._tokenResponse.screenName}`
-      );
-      const random = await url.json();
+      const userData = await signInWithPopup(auth, new GithubAuthProvider());
+      console.log(user._tokenResponse.screenName);
 
-      setBase(random);
-      console.log(currentUser);
+      setUserCred(userData);
+      console.log(user);
     } catch (error) {
       console.log(error.message);
     }
   };
 
   const handleLogout = async () => {
-    if (currentUser) {
+    if (user) {
       await signOut(auth);
       console.log(`User is signed out ${user?.email}`);
     } else {
@@ -61,48 +43,53 @@ function Login() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="loader"></div>;
+      </div>
+    );
+  }
+
   return (
     <>
-      {currentUser ? (
-        <Main username={anotherUser.email} imageSrc={anotherUser.photoURL} />
-      ) : (
-        <HStack
-          flexDirection="column"
-          height="100vh"
+      <HStack
+        flexDirection="column"
+        height="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button
           display="flex"
-          justifyContent="center"
-          alignItems="center"
+          padding="2%"
+          gap="10px"
+          colorScheme="purple"
+          variant="outline"
+          fontSize="1.5em"
+          className="learn-more"
+          position="relative"
+          cursor="pointer"
+          onClick={() => {
+            if (user) {
+              console.log("u are already logged in");
+            } else {
+              handleLogin();
+              router.push("/chat");
+            }
+          }}
         >
-          <Button
-            display="flex"
-            padding="2%"
-            gap="10px"
-            colorScheme="purple"
-            variant="outline"
-            fontSize="1.5em"
-            className="learn-more"
-            position="relative"
-            cursor="pointer"
-            onClick={() => {
-              if (user) {
-                console.log("u are already logged in");
-              } else {
-                handleLogin();
-              }
-            }}
-          >
-            Login With GitHub <FaGithub />
-          </Button>
-          <Button
-            onClick={handleLogout}
-            style={{
-              marginTop: "20px",
-            }}
-          >
-            Logout
-          </Button>
-        </HStack>
-      )}
+          Login With GitHub <FaGithub />
+        </Button>
+        <Button
+          onClick={handleLogout}
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          Logout
+        </Button>
+      </HStack>
     </>
   );
 }

@@ -7,7 +7,7 @@ import { Context } from "../../context";
 
 function Layout({ username, imageSrc }) {
   return (
-    <VStack height="100vh" bg="black" width="20%" overflow="hidden">
+    <VStack className="room-wrapper" height="100vh" bg="black" width="20%" overflow="hidden">
       <Room />
       <Divider />
       <UserProfile username={username} imageSrc={imageSrc} />

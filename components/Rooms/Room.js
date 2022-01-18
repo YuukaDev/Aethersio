@@ -45,6 +45,34 @@ function Room() {
           >
             Join This Room
           </Button>
+          <Button
+            onClick={() => {
+              router.push("/chat");
+            }}
+          >
+            Join This Room
+          </Button>
+          <Button
+            onClick={() => {
+              router.push("/chat");
+            }}
+          >
+            Join This Room
+          </Button>
+          <Button
+            onClick={() => {
+              router.push("/chat");
+            }}
+          >
+            Join This Room
+          </Button>
+          <Button
+            onClick={() => {
+              router.push("/chat");
+            }}
+          >
+            Join This Room
+          </Button>
         </Flex>
       </Box>
     </Container>

@@ -6,7 +6,7 @@ export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [userCred, setUserCred] = useState(null);
-  const [base, setBase] = useState({});
+  const [room, setRoom] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -31,6 +31,8 @@ export const ContextProvider = ({ children }) => {
     setUserCred,
     handleLogin,
     handleLogout,
+    room,
+    setRoom,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

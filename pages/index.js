@@ -1,11 +1,23 @@
 import Login from "../components/Login/Login";
 import Main from "../components/Main/Main";
+import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../auth/firebase";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  //const [room, setRoom] = useState("");
-  const showChat = false;
+  const router = useRouter();
+  const [user] = useAuthState(auth);
 
-  return <div>{!showChat ? <Login /> : <Main />}</div>;
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    } else {
+      router.push("/room");
+    }
+  });
+
+  return <>{!user ? <Login /> : <Main />}</>;
 }
 
 /*

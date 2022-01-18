@@ -7,84 +7,58 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../auth/firebase";
+
 import { useRouter } from "next/router";
+import ChatContent from "../Chat/ChatContent";
 
 import io from "socket.io-client";
-
 const socket = io.connect("http://localhost:3001");
 
 function Room() {
+  const [user] = useAuthState(auth);
   const [room, setRoom] = useState("");
-  const router = useRouter();
+  const [showChat, setShowChat] = useState(false);
+
   const joinRoom = () => {
-    console.log(room);
-    socket.emit("join_room", room);
+    if (user !== "" && room !== "") {
+      socket.emit("join_room", room);
+      setShowChat(true);
+    }
   };
   return (
-    <Container>
-      <Box alignItems="center" justifyContent="center" display="flex" mt="15px">
-        <Flex
-          width="50%"
-          justifyContent="center"
-          alignItems="center"
-          flexDirection="column"
-          gap="2em"
-        >
+    <div
+      style={{
+        marginLeft: "20px",
+      }}
+      className="App"
+    >
+      {!showChat ? (
+        <div className="joinChatContainer">
+          <br />
+          <h3>Join A Chat</h3>
+
           <Input
+            w="100%"
             type="text"
-            placeholder="ROOM ID..."
-            onChange={(e) => {
-              setRoom(e.target.value);
+            placeholder="Room ID..."
+            onChange={(event) => {
+              setRoom(event.target.value);
             }}
           />
-          <Button
-            onClick={() => {
-              router.push("/chat");
-            }}
-          >
-            Join This Room
+          <br />
+          <Button mt="20px" onClick={joinRoom}>
+            Join A Room
           </Button>
-          <Button
-            onClick={() => {
-              router.push("/chat");
-            }}
-          >
-            Join This Room
-          </Button>
-          <Button
-            onClick={() => {
-              router.push("/chat");
-            }}
-          >
-            Join This Room
-          </Button>
-          <Button
-            onClick={() => {
-              router.push("/chat");
-            }}
-          >
-            Join This Room
-          </Button>
-          <Button
-            onClick={() => {
-              router.push("/chat");
-            }}
-          >
-            Join This Room
-          </Button>
-        </Flex>
-      </Box>
-    </Container>
+        </div>
+      ) : (
+        <ChatContent socket={socket} username={user.email} room={room} />
+      )}
+    </div>
   );
 }
 
 export default Room;
-
-const Content = () => {
-  return (
-    <>
-      <HStack width="full" flex="1" overflow="hidden"></HStack>
-    </>
-  );
-};

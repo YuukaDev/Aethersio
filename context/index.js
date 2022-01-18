@@ -1,12 +1,15 @@
 import React, { useState, createContext } from "react";
 import { signInWithPopup, GithubAuthProvider, signOut } from "firebase/auth";
 import { auth } from "../auth/firebase";
+import io from "socket.io-client";
 
+const socket = io.connect("http://localhost:3001");
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [userCred, setUserCred] = useState(null);
   const [room, setRoom] = useState("");
+  const [showChat, setShowChat] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -31,8 +34,8 @@ export const ContextProvider = ({ children }) => {
     setUserCred,
     handleLogin,
     handleLogout,
-    room,
-    setRoom,
+    showChat,
+    setShowChat,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

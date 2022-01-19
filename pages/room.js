@@ -7,11 +7,20 @@ import { auth } from "../auth/firebase";
 
 export default function Chat() {
   const [currentUser] = useAuthState(auth);
+  const sendData = async () => {
+    console.log(currentUser);
+  };
 
   return (
     <>
       {currentUser ? (
-        <Main username={currentUser?.email} imageSrc={currentUser?.photoURL} />
+        <>
+          <Main
+            username={currentUser?.reloadUserInfo.screenName}
+            imageSrc={currentUser?.photoURL}
+          />
+          <button onClick={sendData}>Click Me</button>
+        </>
       ) : (
         <Login />
       )}

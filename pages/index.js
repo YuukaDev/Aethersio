@@ -9,14 +9,6 @@ export default function Home() {
   const router = useRouter();
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-    } else {
-      router.push("/room");
-    }
-  });
-
   return <>{!user ? <Login /> : <Main />}</>;
 }
 

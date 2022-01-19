@@ -12,16 +12,12 @@ import {
 import moment from "moment";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../auth/firebase";
+import Login from "../Login/Login";
 
 function ChatContent({ socket, username, room }) {
   const [user] = useAuthState(auth);
-  const {
-    sendMessage,
-    currentMessage,
-    setCurrentMessage,
-    messageList,
-    setMessageList,
-  } = useContext(Context);
+  const { currentMessage, setCurrentMessage, messageList, setMessageList } =
+    useContext(Context);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -54,7 +50,7 @@ function ChatContent({ socket, username, room }) {
           return (
             <Box>
               <Flex gap="10px">
-                <Avatar src={user.photoURL} />
+                <Avatar src={user?.photoURL} />
                 <Heading>{messageContent.author}</Heading>
               </Flex>
               <Text fontSize="1.5em">{messageContent.message}</Text>

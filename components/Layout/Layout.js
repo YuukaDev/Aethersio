@@ -15,7 +15,6 @@ function Layout() {
       overflow="hidden"
     >
       <Room />
-      <Divider />
       <UserProfile />
     </VStack>
   );

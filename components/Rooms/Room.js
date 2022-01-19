@@ -33,35 +33,32 @@ function Room() {
       router.push(`/room/${room}`);
     }
   };
-  return (
-    <div
-      style={{
-        height: "95%",
-        marginLeft: "20px",
-      }}
-      className="App"
-    >
-      <div className="joinChatContainer">
-        <br />
-        <h3>Join A Chat</h3>
 
+  const createRoom = () => {};
+
+  return (
+    <Box height="100%">
+      <br />
+      <Box>
         <Input
-          w="100%"
           type="text"
           placeholder="Room ID..."
           onChange={(e) => {
             setRoom(e.target.value);
           }}
         />
-        <br />
         <Button mt="20px" onClick={joinRoom}>
           Join A Room
         </Button>
-        <Button mt="20px" bg="blue" onClick={handleLogout}>
-          Logout
+      </Box>
+      <br />
+      <Box>
+        <Input type="text" placeholder="Name of the room..." />
+        <Button mt="20px" onClick={joinRoom}>
+          Create Room
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

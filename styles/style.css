@@ -31,9 +31,3 @@
     transform: rotate(360deg);
   }
 }
-
-@media screen and (max-width: 750px) {
-  .room-wrapper {
-    background-color: blue;
-  }
-}

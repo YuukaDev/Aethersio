@@ -1,10 +1,27 @@
-import { useEffect, useState } from "react";
-import { Box, Flex, Input, Button } from "@chakra-ui/react";
+import { useEffect, useContext } from "react";
+import { Context } from "../../context";
+import {
+  Box,
+  Flex,
+  Input,
+  Button,
+  Heading,
+  Avatar,
+  Text,
+} from "@chakra-ui/react";
 import moment from "moment";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../auth/firebase";
 
 function ChatContent({ socket, username, room }) {
-  const [currentMessage, setCurrentMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
+  const [user] = useAuthState(auth);
+  const {
+    sendMessage,
+    currentMessage,
+    setCurrentMessage,
+    messageList,
+    setMessageList,
+  } = useContext(Context);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -12,7 +29,7 @@ function ChatContent({ socket, username, room }) {
         room: room,
         author: username,
         message: currentMessage,
-        time: moment().startOf("hour").fromNow(),
+        time: moment().format("MMM Do YY"),
       };
 
       await socket.emit("send_message", messageData);
@@ -35,21 +52,16 @@ function ChatContent({ socket, username, room }) {
       <div className="chat-body">
         {messageList.map((messageContent, index) => {
           return (
-            <div
-              key={index}
-              className="message"
-              id={username === messageContent.author ? "you" : "other"}
-            >
-              <div>
-                <div className="message-content">
-                  <p>{messageContent.message}</p>
-                </div>
-                <div className="message-meta">
-                  <p id="time">{messageContent.time}</p>
-                  <p id="author">{messageContent.author}</p>
-                </div>
-              </div>
-            </div>
+            <Box>
+              <Flex gap="10px">
+                <Avatar src={user.photoURL} />
+                <Heading>{messageContent.author}</Heading>
+              </Flex>
+              <Text fontSize="1.5em">{messageContent.message}</Text>
+              <Text fontSize="md" as="samp">
+                {messageContent.time}
+              </Text>
+            </Box>
           );
         })}
       </div>

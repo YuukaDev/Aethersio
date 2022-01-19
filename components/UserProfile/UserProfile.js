@@ -1,7 +1,10 @@
 import React from "react";
 import { Container, Box, Flex, Heading, Avatar } from "@chakra-ui/react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../auth/firebase";
 
-function UserProfile({ username, imageSrc }) {
+function UserProfile() {
+  const [user] = useAuthState(auth);
   return (
     <Container w="100%" bg="red">
       <Box
@@ -12,8 +15,8 @@ function UserProfile({ username, imageSrc }) {
         mt="1em"
         mb="1em"
       >
-        <Heading size="lg">{username}</Heading>
-        <Avatar src={imageSrc} />
+        <Heading size="lg">{user?.reloadUserInfo.screenName}</Heading>
+        <Avatar src={user?.photoURL} />
       </Box>
     </Container>
   );

@@ -5,12 +5,18 @@ import Room from "../Rooms/Room";
 import UserProfile from "../UserProfile/UserProfile";
 import { Context } from "../../context";
 
-function Layout({ username, imageSrc }) {
+function Layout() {
   return (
-    <VStack className="room-wrapper" height="100vh" bg="black" width="20%" overflow="hidden">
+    <VStack
+      className="room-wrapper"
+      height="100vh"
+      bg="black"
+      width="20%"
+      overflow="hidden"
+    >
       <Room />
       <Divider />
-      <UserProfile username={username} imageSrc={imageSrc} />
+      <UserProfile />
     </VStack>
   );
 }

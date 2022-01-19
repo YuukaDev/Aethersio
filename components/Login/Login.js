@@ -47,7 +47,7 @@ function Login() {
               console.log("u are already logged in");
             } else {
               handleLogin();
-              router.push("/chat");
+              router.push("/room");
             }
           }}
         >

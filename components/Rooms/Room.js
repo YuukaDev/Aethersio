@@ -23,12 +23,14 @@ function Room() {
   const [user] = useAuthState(auth);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
+  const router = useRouter();
   const { handleLogout } = useContext(Context);
 
   const joinRoom = () => {
     if (user !== "" && room !== "") {
       socket.emit("join_room", room);
       setShowChat(true);
+      router.push(`/room/${room}`);
     }
   };
   return (
@@ -48,8 +50,8 @@ function Room() {
             w="100%"
             type="text"
             placeholder="Room ID..."
-            onChange={(event) => {
-              setRoom(event.target.value);
+            onChange={(e) => {
+              setRoom(e.target.value);
             }}
           />
           <br />

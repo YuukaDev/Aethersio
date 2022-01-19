@@ -22,6 +22,7 @@ const socket = io.connect("http://localhost:3001");
 function Room() {
   const [user] = useAuthState(auth);
   const [room, setRoom] = useState("");
+  const [roomData, setRoomData] = useState([]);
   const [showChat, setShowChat] = useState(false);
   const router = useRouter();
   const { handleLogout } = useContext(Context);
@@ -34,7 +35,9 @@ function Room() {
     }
   };
 
-  const createRoom = () => {};
+  const createRoom = (e) => {
+    return <Button>{e.target.value}</Button>;
+  };
 
   return (
     <Box height="100%">
@@ -53,8 +56,14 @@ function Room() {
       </Box>
       <br />
       <Box>
-        <Input type="text" placeholder="Name of the room..." />
-        <Button mt="20px" onClick={joinRoom}>
+        <Input
+          onChange={(e) => {
+            setRoom(e.target.value);
+          }}
+          type="text"
+          placeholder="Name of the room..."
+        />
+        <Button mt="20px" onClick={createRoom}>
           Create Room
         </Button>
       </Box>

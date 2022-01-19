@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 import { signInWithPopup, GithubAuthProvider, signOut } from "firebase/auth";
 import { auth } from "../auth/firebase";
 import io from "socket.io-client";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const socket = io.connect("http://localhost:3001");
 export const Context = createContext();
@@ -10,11 +11,14 @@ export const ContextProvider = ({ children }) => {
   const [userCred, setUserCred] = useState(null);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
+  const [user] = useAuthState(auth);
 
   const handleLogin = async () => {
     try {
       const userData = await signInWithPopup(auth, new GithubAuthProvider());
       setUserCred(userData);
+      console.log(userData);
+      console.log(user);
     } catch (error) {
       console.log(error.message);
     }

@@ -40,6 +40,8 @@ export const ContextProvider = ({ children }) => {
     handleLogout,
     showChat,
     setShowChat,
+    room,
+    setRoom,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

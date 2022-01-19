@@ -41,34 +41,26 @@ function Room() {
       }}
       className="App"
     >
-      {!showChat ? (
-        <div className="joinChatContainer">
-          <br />
-          <h3>Join A Chat</h3>
+      <div className="joinChatContainer">
+        <br />
+        <h3>Join A Chat</h3>
 
-          <Input
-            w="100%"
-            type="text"
-            placeholder="Room ID..."
-            onChange={(e) => {
-              setRoom(e.target.value);
-            }}
-          />
-          <br />
-          <Button mt="20px" onClick={joinRoom}>
-            Join A Room
-          </Button>
-          <Button mt="20px" bg="blue" onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
-      ) : (
-        <ChatContent
-          socket={socket}
-          username={user?.reloadUserInfo.screenName}
-          room={room}
+        <Input
+          w="100%"
+          type="text"
+          placeholder="Room ID..."
+          onChange={(e) => {
+            setRoom(e.target.value);
+          }}
         />
-      )}
+        <br />
+        <Button mt="20px" onClick={joinRoom}>
+          Join A Room
+        </Button>
+        <Button mt="20px" bg="blue" onClick={handleLogout}>
+          Logout
+        </Button>
+      </div>
     </div>
   );
 }

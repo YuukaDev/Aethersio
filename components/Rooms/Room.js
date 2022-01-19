@@ -16,12 +16,14 @@ import { useRouter } from "next/router";
 import ChatContent from "../Chat/ChatContent";
 
 import io from "socket.io-client";
+import { Context } from "../../context";
 const socket = io.connect("http://localhost:3001");
 
 function Room() {
   const [user] = useAuthState(auth);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
+  const { handleLogout } = useContext(Context);
 
   const joinRoom = () => {
     if (user !== "" && room !== "") {
@@ -53,9 +55,16 @@ function Room() {
           <Button mt="20px" onClick={joinRoom}>
             Join A Room
           </Button>
+          <Button mt="20px" bg="blue" onClick={handleLogout}>
+            Logout
+          </Button>
         </div>
       ) : (
-        <ChatContent socket={socket} username={user.email} room={room} />
+        <ChatContent
+          socket={socket}
+          username={user?.reloadUserInfo.screenName}
+          room={room}
+        />
       )}
     </div>
   );

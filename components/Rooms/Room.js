@@ -34,6 +34,7 @@ function Room() {
   return (
     <div
       style={{
+        height: "95%",
         marginLeft: "20px",
       }}
       className="App"

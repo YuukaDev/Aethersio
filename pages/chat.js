@@ -1,7 +1,9 @@
+import AnotherChat from "../components/AnotherChat/AnotherChat";
+
 export default function Chat() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <AnotherChat />
     </div>
   );
 }

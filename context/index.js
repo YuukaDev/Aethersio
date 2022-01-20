@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [userCred, setUserCred] = useState(null);
+  const [userDataCred, setUserDataCred] = useState({});
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [user] = useAuthState(auth);
@@ -17,9 +17,7 @@ export const ContextProvider = ({ children }) => {
   const handleLogin = async () => {
     try {
       const userData = await signInWithPopup(auth, new GithubAuthProvider());
-      setUserCred(userData);
-      console.log(userData);
-      console.log(user);
+      setUserDataCred(userData);
     } catch (error) {
       console.log(error.message);
     }
@@ -35,8 +33,8 @@ export const ContextProvider = ({ children }) => {
   };
 
   const value = {
-    userCred,
-    setUserCred,
+    userDataCred,
+    setUserDataCred,
     handleLogin,
     handleLogout,
     showChat,

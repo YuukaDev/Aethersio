@@ -17,21 +17,23 @@ import ChatContent from "../Chat/ChatContent";
 
 import io from "socket.io-client";
 import { Context } from "../../context";
+import useLocalStorage from "react-use-localstorage";
+import { useEffect } from "react/cjs/react.production.min";
 const socket = io.connect("http://localhost:3001");
 
 function Room() {
   const [user] = useAuthState(auth);
   const [room, setRoom] = useState("");
-  const [roomData, setRoomData] = useState([]);
-  const [showChat, setShowChat] = useState(false);
+  const [roomData, setRoomData] = useLocalStorage("room", room);
   const router = useRouter();
   const { handleLogout } = useContext(Context);
 
   const joinRoom = () => {
     if (user !== "" && room !== "") {
       socket.emit("join_room", room);
-      setShowChat(true);
       router.push(`/room/${room}`);
+      setRoomData(room);
+      console.log(roomData);
     }
   };
 
@@ -65,6 +67,12 @@ function Room() {
         />
         <Button mt="20px" onClick={createRoom}>
           Create Room
+        </Button>
+      </Box>
+      <br />
+      <Box>
+        <Button bg="blue.300" onClick={handleLogout}>
+          Logout
         </Button>
       </Box>
     </Box>

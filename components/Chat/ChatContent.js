@@ -16,8 +16,13 @@ import { ChatIcon } from "@chakra-ui/icons";
 
 function ChatContent({ socket, username, room }) {
   const [user] = useAuthState(auth);
-  const { currentMessage, setCurrentMessage, messageList, setMessageList } =
-    useContext(Context);
+  const {
+    userDataCred,
+    currentMessage,
+    setCurrentMessage,
+    messageList,
+    setMessageList,
+  } = useContext(Context);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -52,7 +57,7 @@ function ChatContent({ socket, username, room }) {
                 justifyContent="center"
                 alignContent="center"
               >
-                <Avatar src={user?.photoURL} />
+                <Avatar src={user.photoURL} />
                 <Heading fontSize="1.5em">{messageContent.author}</Heading>
                 <Text fontSize="1.3em"> | </Text>
                 <Text fontSize="1.3em" as="samp">

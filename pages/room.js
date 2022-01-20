@@ -12,6 +12,13 @@ export default function Chat() {
     console.log(userDataCred);
   };
 
+  const joinRoom = () => {
+    if (user !== "" && room !== "") {
+      socket.emit("join_room", room);
+      setShowChat(true);
+    }
+  };
+
   return (
     <>
       {user ? (

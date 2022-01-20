@@ -18,6 +18,7 @@ export const ContextProvider = ({ children }) => {
     try {
       const userData = await signInWithPopup(auth, new GithubAuthProvider());
       setUserDataCred(userData);
+      console.log(userDataCred);
     } catch (error) {
       console.log(error.message);
     }

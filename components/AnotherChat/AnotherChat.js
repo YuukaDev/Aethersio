@@ -1,21 +1,25 @@
 import io from "socket.io-client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ChatContent from "../Chat/ChatContent";
-import { Button, Divider, Input } from "@chakra-ui/react";
+import { Button, Input } from "@chakra-ui/react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../auth/firebase";
+import { Context } from "../../context";
 
 const socket = io.connect("http://localhost:3001");
 
 function AnotherChat() {
-  const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
+  const [user] = useAuthState(auth);
 
   const joinRoom = () => {
-    if (username !== "" && room !== "") {
+    if (user !== "" && room !== "") {
       socket.emit("join_room", room);
       setShowChat(true);
     }
   };
+
   return (
     <div
       style={{
@@ -25,20 +29,6 @@ function AnotherChat() {
     >
       {!showChat ? (
         <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
-          <Input
-            w="20%"
-            type="text"
-            placeholder="John..."
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
-          />
-          <br
-            style={{
-              marginTop: "30px",
-            }}
-          />
           <Input
             w="20%"
             type="text"
@@ -53,7 +43,11 @@ function AnotherChat() {
           </Button>
         </div>
       ) : (
-        <ChatContent socket={socket} username={username} room={room} />
+        <ChatContent
+          socket={socket}
+          username={user?.reloadUserInfo.screenName}
+          room={room}
+        />
       )}
     </div>
   );

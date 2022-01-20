@@ -3,12 +3,10 @@ import { signInWithPopup, GithubAuthProvider, signOut } from "firebase/auth";
 import { auth } from "../auth/firebase";
 import io from "socket.io-client";
 import { useAuthState } from "react-firebase-hooks/auth";
-import moment from "moment";
 
-const socket = io.connect("http://localhost:3001");
 export const Context = createContext();
 
-export const ContextProvider = ({ children, username }) => {
+export const ContextProvider = ({ children }) => {
   const [userCred, setUserCred] = useState(null);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);

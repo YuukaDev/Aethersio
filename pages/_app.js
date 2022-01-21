@@ -1,4 +1,4 @@
-import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import customTheme from "../styles/theme";
 import { ContextProvider } from "../context";
 import "../styles/style.css";

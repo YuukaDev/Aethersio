@@ -12,7 +12,7 @@ function Layout() {
       height="100vh"
       bg="black"
       width="20%"
-      overflow="hidden"
+      overflow="scroll"
     >
       <Room />
       <UserProfile />

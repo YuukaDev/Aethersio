@@ -24,7 +24,9 @@ function Room() {
   const joinRoom = () => {
     if (user !== "" && room !== "") {
       socket.emit("join_room", room);
+      socket.emit("create_room", room);
       setShowChat(true);
+      router.push(`/room/${room}`);
     }
   };
 

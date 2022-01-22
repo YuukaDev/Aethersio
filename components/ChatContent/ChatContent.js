@@ -50,7 +50,7 @@ function ChatContent({ socket, username, room }) {
       <Box>
         {messageList.map((messageContent, index) => {
           return (
-            <Box mt="25px" key={index}>
+            <Box color="#fff" mt="25px" key={index}>
               <Box
                 gap="10px"
                 display="flex"

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { Context } from "../../context";
 
-import ChatContent from "../../components/Chat/ChatContent";
+import ChatContent from "../../components/ChatContent/ChatContent";
 import io from "socket.io-client";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../auth/firebase";

@@ -50,14 +50,6 @@ function Login() {
         >
           Login With GitHub <FaGithub />
         </Button>
-        <Button
-          onClick={handleLogout}
-          style={{
-            marginTop: "20px",
-          }}
-        >
-          Logout
-        </Button>
       </HStack>
     </>
   );

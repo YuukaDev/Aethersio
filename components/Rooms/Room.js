@@ -9,7 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../auth/firebase";
 import { useRouter } from "next/router";
 import { Context } from "../../context";
-import ChatContent from "../Chat/ChatContent";
+import ChatContent from "../ChatContent/ChatContent";
 
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");

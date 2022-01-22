@@ -17,7 +17,6 @@ import { ChatIcon } from "@chakra-ui/icons";
 function ChatContent({ socket, username, room }) {
   const [user] = useAuthState(auth);
   const {
-    userDataCred,
     currentMessage,
     setCurrentMessage,
     messageList,

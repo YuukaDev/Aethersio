@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Box, Flex, Heading, Avatar } from "@chakra-ui/react";
+import { Container, Box, Heading, Avatar } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../auth/firebase";
 

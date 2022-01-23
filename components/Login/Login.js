@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 function Login() {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
-  const { handleLogin, handleLogout } = useContext(Context);
+  const { handleLogin } = useContext(Context);
 
   if (loading) {
     return (

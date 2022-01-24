@@ -1,8 +1,13 @@
 import {
+  Flex,
+  Text,
+  IconButton,
+  Divider,
+  Avatar,
+  Heading,
   Box,
-  Button,
-  Input,
-} from "@chakra-ui/react";
+  Button
+} from '@chakra-ui/react';
 import { useContext, useEffect, useState } from "react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -12,6 +17,7 @@ import { Context } from "../../context";
 import ChatContent from "../ChatContent/ChatContent";
 
 import io from "socket.io-client";
+import UserProfile from '../UserProfile/UserProfile';
 const socket = io.connect("http://localhost:3001");
 
 function Room() {
@@ -31,34 +37,43 @@ function Room() {
   };
 
   return (
-    <>
-      {!showChat ? (
-        <Box height="100%">
-          <Box>
-            <Input
-              mt="30px"
-              type="text"
-              placeholder="Room ID..."
-              onChange={(e) => {
-                setRoom(e.target.value);
-              }}
-            />
-            <Button mt="20px" onClick={joinRoom}>
-              Join A Room
-            </Button>
-          </Box>
-          <Button bg="blue.300" mt="20px" onClick={handleLogout}>
-            Logout
-          </Button>
+    <Flex
+      pos="sticky"
+      left="5"
+      h="95vh"
+      marginTop="2.5vh"
+      borderRadius="36px"
+      width="400px"
+      flexDir="column"
+      backgroundColor="#efc050"
+      justifyContent="space-between"
+    >
+      <Flex
+        borderRadius="36px"
+        backgroundColor="#efc050"
+        p="5%"
+        flexDir="column"
+        w="100%"
+        alignItems="flex-start"
+        as="nav"
+      >
+        <Avatar />
+      </Flex>
+
+      <Flex
+        backgroundColor="#efc050"
+        p="5%"
+        flexDir="column"
+        w="100%"
+        alignItems="flex-start"
+        borderRadius="36px"
+      >
+        <Divider display="flex" />
+        <Box ml="20%" mt="5%">
+          <UserProfile />
         </Box>
-      ) : (
-        <ChatContent
-          socket={socket}
-          username={user?.reloadUserInfo.screenName}
-          room={room}
-        />
-      )}
-    </>
+      </Flex>
+    </Flex>
   );
 }
 

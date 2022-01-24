@@ -30,15 +30,24 @@ function Login() {
         alignItems="center"
       >
         <Button
-          display="flex"
           padding="2%"
           gap="10px"
-          colorScheme="purple"
+          color="#f67599"
+          border="1px"
+          borderColor="#f67599"
           variant="outline"
           fontSize="1.5em"
-          className="learn-more"
-          position="relative"
           cursor="pointer"
+          _hover={{
+            transform: "scale(1.1)",
+            border: "1px solid #f67599",
+            boxShadow: "10px 10px #f67599"
+          }}
+          _active={{
+            transform: "scale(1.1)",
+            border: "1px solid #f67599",
+            boxShadow: "10px 10px #f67599"
+          }}
           onClick={() => {
             if (user) {
               console.log("u are already logged in");

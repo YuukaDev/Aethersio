@@ -6,19 +6,15 @@ import { auth } from "../../auth/firebase";
 function UserProfile() {
   const [user] = useAuthState(auth);
   return (
-    <Container w="100%" bg="red">
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap="10px"
-        mt="1em"
-        mb="1em"
-      >
-        <Heading size="lg">{user?.reloadUserInfo.screenName}</Heading>
-        <Avatar src={user?.photoURL} />
-      </Box>
-    </Container>
+    <Box
+      width="50px"
+      backgroundColor="#efc050"
+      display="flex"
+      gap="10px"
+    >
+      <Heading bg="#efc050" color="#000">{user?.reloadUserInfo.screenName}</Heading>
+      <Avatar src={user?.photoURL} />
+    </Box>
   );
 }
 

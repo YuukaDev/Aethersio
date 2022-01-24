@@ -1,10 +1,13 @@
-import io from "socket.io-client";
 import { useContext, useState } from "react";
-import ChatContent from "../Chat/ChatContent";
-import { Button, Input } from "@chakra-ui/react";
+import { Context } from "../../context";
+import io from "socket.io-client";
+
+import { Text, Box } from "@chakra-ui/react";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../auth/firebase";
-import { Context } from "../../context";
+
+import TypeAnimation from "react-type-animation";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -20,37 +23,21 @@ function AnotherChat() {
     }
   };
 
+
+
   return (
-    <div
-      style={{
-        marginLeft: "20px",
-      }}
-      className="App"
-    >
-      {!showChat ? (
-        <div className="joinChatContainer">
-          <Input
-            w="20%"
-            type="text"
-            placeholder="Room ID..."
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
-          />
-          <br />
-          <Button mt="20px" onClick={joinRoom}>
-            Join A Room
-          </Button>
-        </div>
-      ) : (
-        <ChatContent
-          socket={socket}
-          username={user?.reloadUserInfo.screenName}
-          room={room}
-        />
-      )}
-    </div>
-  );
+    <>
+      <Box margin="25px">
+        <Text className="typer" color="red">
+          {`Welcome to [ < Aethersio@: ~$ /> ]`}
+        </Text>
+        <Text className="typer-2" color="red">
+          {`You are currently authenticated as a ${user?.reloadUserInfo.screenName}@: ~$`}
+        </Text>
+      </Box>
+    </>
+  )
+
 }
 
 export default AnotherChat;

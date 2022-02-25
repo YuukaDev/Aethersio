@@ -1,6 +1,6 @@
 import {
   Flex,
-  Text,
+  Input,
   IconButton,
   Divider,
   Avatar,
@@ -32,7 +32,8 @@ function Room() {
       socket.emit("join_room", room);
       socket.emit("create_room", room);
       setShowChat(true);
-      //router.push(`/room/${room}`);
+
+      router.push(`/room/${room}`);
     }
   };
 
@@ -59,7 +60,8 @@ function Room() {
       >
         <Avatar />
       </Flex>
-
+      <Input bg="black" type="text" />
+      <Button onClick={joinRoom}>Join Room</Button>
       <Flex
         backgroundColor="#efc050"
         p="5%"
@@ -68,6 +70,7 @@ function Room() {
         alignItems="flex-start"
         borderRadius="36px"
       >
+        <Button onClick={handleLogout}>Logout</Button>
         <Divider display="flex" />
         <Box ml="20%" mt="5%">
           <UserProfile />

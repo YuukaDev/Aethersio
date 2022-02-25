@@ -1,22 +1,22 @@
 import Main from "../components/Main/Main";
-import Login from "../components/Login/Login";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../auth/firebase";
-import { Context } from "../context";
-import { useContext } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Chat() {
+  const router = useRouter();
   const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  })
 
   return (
     <>
-      {user ? (
-        <>
-          <Main />
-        </>
-      ) : (
-        <Login />
-      )}
+      <Main />
     </>
   );
 }

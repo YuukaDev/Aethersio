@@ -13,12 +13,12 @@ import { Container, Box, Button } from "@chakra-ui/react";
 function RoomPage() {
   const [user] = useAuthState(auth);
   const socket = io.connect("http://localhost:3001");
-  const { room } = useContext(Context);
+  //const { room } = useContext(Context);
   const router = useRouter();
-
+  let { room } = router.query;
   const goBack = () => {
     router.push("/room");
-  };
+  }
 
   return (
     <Container>

@@ -16,9 +16,7 @@ function UserProfile() {
         <Avatar src={user?.photoURL} />
         <Heading as="h3" variant="h3">Chats</Heading>
       </Flex>
-      <Box fontSize="1em">
-        <IconButton icon={<AddIcon />} />
-      </Box>
+      <IconButton icon={<AddIcon />} />
     </>
   );
 }

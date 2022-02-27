@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { auth } from "../../auth/firebase";
-import { Button, HStack } from "@chakra-ui/react";
+import { Button, HStack, CircularProgress, Box } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
 import { Context } from "../../context";
 import { useRouter } from "next/router";
@@ -14,9 +14,9 @@ function Login() {
 
   if (loading) {
     return (
-      <div className="loading">
-        <div className="loader"></div>
-      </div>
+      <Box height="95vh" display="flex" alignItems="center" justifyContent="center">
+        <CircularProgress size="10rem" isIndeterminate color='red' />
+      </Box>
     );
   }
 

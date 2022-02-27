@@ -15,13 +15,17 @@ import {
     Button,
     useColorMode,
     IconButton,
+    Input,
+    Grid,
+    HStack,
+    Container,
 } from '@chakra-ui/react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../auth/firebase'
 import { AddIcon } from "@chakra-ui/icons";
 import DarkMode from '../DarkMode/DarkMode';
 import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";
-import { BsFillGearFill, BsBoxArrowLeft } from "react-icons/bs";
+import { BsFillGearFill, BsBoxArrowLeft, BsFillPeopleFill } from "react-icons/bs";
 
 export default function Sidebar() {
     const { colorMode } = useColorMode();
@@ -35,7 +39,6 @@ export default function Sidebar() {
             flexDir="column"
             justifyContent="space-between"
         >
-
             <Flex ml="20px" as="nav">
                 <Flex gap="10px" mt={5} alignItems="center">
                     <Avatar src={user?.photoURL} />
@@ -54,8 +57,8 @@ export default function Sidebar() {
                                 </Button>
                             </PopoverTrigger>
                             <Portal>
-                                <PopoverContent w="10rem">
-                                    <PopoverArrow />
+                                <PopoverContent w="10rem" bg={colorMode === 'dark' ? "gray.800" : 'gray.200'}>
+                                    <PopoverArrow bg={colorMode === 'dark' ? "gray.800" : 'gray.200'} />
                                     <PopoverBody>
                                         <Flex ml="-15px" flexDir="column">
                                             <Flex width="200px" float="left">
@@ -90,6 +93,21 @@ export default function Sidebar() {
                                     <Icon bg="none" cursor="pointer" as={AddIcon} />
                                 </Button>
                             </PopoverTrigger>
+                            <Portal>
+                                <PopoverContent w="10rem" bg={colorMode === 'dark' ? "gray.800" : 'gray.200'}>
+                                    <PopoverArrow />
+                                    <PopoverBody>
+                                        <Flex ml="-15px" flexDir="column">
+                                            <Flex width="200px" float="left">
+                                                <Button gap="10px" variant="ghost">
+                                                    <Icon variant="ghost" as={BsFillPeopleFill} />
+                                                    <Text size="xs">Public</Text>
+                                                </Button>
+                                            </Flex>
+                                        </Flex>
+                                    </PopoverBody>
+                                </PopoverContent>
+                            </Portal>
                         </Popover>
                         <DarkMode />
                     </Flex>

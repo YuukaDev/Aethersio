@@ -4,9 +4,9 @@ import {
     PopoverTrigger,
     PopoverBody,
     PopoverArrow,
-    PopoverHeader,
+    Text,
     PopoverContent,
-    PopoverCloseButton,
+    Box,
     Portal,
     PopoverFooter,
     Icon,
@@ -14,12 +14,14 @@ import {
     Heading,
     Button,
     useColorMode,
+    IconButton,
 } from '@chakra-ui/react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../auth/firebase'
 import { AddIcon } from "@chakra-ui/icons";
 import DarkMode from '../DarkMode/DarkMode';
-import { HiDotsHorizontal } from "react-icons/hi";
+import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";
+import { BsFillGearFill, BsBoxArrowLeft } from "react-icons/bs";
 
 export default function Sidebar() {
     const { colorMode } = useColorMode();
@@ -51,6 +53,35 @@ export default function Sidebar() {
                                     <Icon bg="none" cursor="pointer" as={HiDotsHorizontal} />
                                 </Button>
                             </PopoverTrigger>
+                            <Portal>
+                                <PopoverContent w="10rem">
+                                    <PopoverArrow />
+                                    <PopoverBody>
+                                        <Flex ml="-15px" flexDir="column">
+                                            <Flex width="200px" float="left">
+                                                <Button gap="10px" variant="ghost">
+                                                    <Icon variant="ghost" as={BsFillGearFill} />
+                                                    <Text size="xs">Preferences</Text>
+                                                </Button>
+                                            </Flex>
+                                            <Flex width="200px" float="left">
+                                                <Button gap="10px" variant="ghost">
+                                                    <Icon variant="ghost" as={HiQuestionMarkCircle} />
+                                                    <Text size="xs">Help</Text>
+                                                </Button>
+                                            </Flex>
+                                            <Flex width="200px" float="left">
+                                                <Button gap="10px" variant="ghost">
+                                                    <Icon variant="ghost" as={BsBoxArrowLeft} />
+                                                    <Text size="xs">Logout</Text>
+                                                </Button>
+                                            </Flex>
+                                        </Flex>
+                                    </PopoverBody>
+                                </PopoverContent>
+                            </Portal>
+                        </Popover>
+                        <Popover>
                             <PopoverTrigger>
                                 <Button
                                     fontSize="1em"
@@ -59,22 +90,11 @@ export default function Sidebar() {
                                     <Icon bg="none" cursor="pointer" as={AddIcon} />
                                 </Button>
                             </PopoverTrigger>
-                            <DarkMode />
-                            <Portal>
-                                <PopoverContent>
-                                    <PopoverArrow />
-                                    <PopoverHeader>Header</PopoverHeader>
-                                    <PopoverCloseButton />
-                                    <PopoverBody>
-                                        <Button colorScheme='blue'>Button</Button>
-                                    </PopoverBody>
-                                    <PopoverFooter>This is the footer</PopoverFooter>
-                                </PopoverContent>
-                            </Portal>
                         </Popover>
+                        <DarkMode />
                     </Flex>
                 </Flex>
-            </Flex>
+            </Flex >
         </Flex >
     )
 }

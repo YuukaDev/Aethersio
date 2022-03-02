@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [userDataCred, setUserDataCred] = useState({});
+  const [userDataCred, setUserDataCred] = useState([]);
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [user] = useAuthState(auth);

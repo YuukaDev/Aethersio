@@ -120,7 +120,7 @@ export default function Sidebar() {
                 <Button height="70px" variant="ghost">
                     <RoomList />
                 </Button>
-                <Button height="70px" variant="ghost">
+                <Button height="70px" width="360px" variant="ghost">
                     <RoomList />
                 </Button>
             </Flex>

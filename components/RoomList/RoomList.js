@@ -3,10 +3,10 @@ import { Button, Heading, Text, Avatar, Flex, Box } from "@chakra-ui/react";
 export default function RoomList() {
     return (
         <Box>
-            <Box display="flex" gap="10px">
+            <Box ml="-15px" display="flex" gap="10px">
                 <Avatar />
                 <Heading fontSize="md" as="h5">Yuuka Room</Heading>
-                <Flex mt="30px" gap="130px" justifyContent="space-between">
+                <Flex mt="30px" gap="170px" justifyContent="space-between">
                     <Text ml="-100px" fontSize="small">
                         hi
                     </Text>

@@ -26,20 +26,19 @@ import { AddIcon } from "@chakra-ui/icons";
 import DarkMode from '../DarkMode/DarkMode';
 import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";
 import { BsFillGearFill, BsBoxArrowLeft, BsFillPeopleFill } from "react-icons/bs";
+import RoomList from '../RoomList/RoomList';
 
 export default function Sidebar() {
     const { colorMode } = useColorMode();
     const [user] = useAuthState(auth);
     return (
-        <Flex
-            pos="sticky"
+        <Box
             h="100vh"
             w="425px"
             borderRight={colorMode === 'dark' ? "1px solid white" : '1px solid black'}
             flexDir="column"
-            justifyContent="space-between"
         >
-            <Flex ml="20px" as="nav">
+            <Flex m="0 auto" w="90%" as="nav">
                 <Flex gap="10px" mt={5} alignItems="center">
                     <Avatar src={user?.photoURL} />
                     <Flex flexDir="column" >
@@ -113,6 +112,18 @@ export default function Sidebar() {
                     </Flex>
                 </Flex>
             </Flex >
-        </Flex >
+            <br />
+            <Box display="flex" justifyContent="center" alignItems="center">
+                <Input borderRadius="16px" placeholder="Search chat..." w="85%" />
+            </Box>
+            <Flex gap="20px" flexDir="column" w="-20%" float="left" ml="35px" mt="50px">
+                <Button height="70px" variant="ghost">
+                    <RoomList />
+                </Button>
+                <Button height="70px" variant="ghost">
+                    <RoomList />
+                </Button>
+            </Flex>
+        </Box >
     )
 }

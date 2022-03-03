@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { auth } from "../../auth/firebase";
+import { auth } from "../../firebase/firebase";
 import { Button, HStack, CircularProgress, Box } from "@chakra-ui/react";
 import { FaGithub } from "react-icons/fa";
 import { Context } from "../../context";

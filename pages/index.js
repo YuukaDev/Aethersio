@@ -1,32 +1,39 @@
+import { useState, useEffect, useContext } from "react";
+
 import Login from "../components/Login/Login";
 import Main from "../components/Main/Main";
+
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../auth/firebase";
-import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { auth, db } from "../firebase/firebase";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { Context } from "../context";
-import { collection, getDocs } from "firebase/firestore";
+import { Button } from "@chakra-ui/react";
 export default function Home() {
+  const { handleLogout } = useContext(Context);
   const [user] = useAuthState(auth);
-  const colRef = collection(db, 'user');
-  const { userDataCred } = useContext(Context);
-  //const router = useRouter();
 
-  useEffect(() => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          userDataCred.push({
-            user
-          })
-        })
-      })
-      console.log(userDataCred);
-  }, [])
-
-  const fetchUserData = async () => {
-
+  const getUsers = async () => {
+    const userCollection = collection(db, 'users');
+    await addDoc(userCollection, {
+      displayName: user.uid,
+      email: user?.email,
+      photoURL: user?.photoURL
+    })
   }
 
-  return <>{!user ? <Login /> : <Main />}</>;
+  useEffect(() => {
+    getUsers();
+  }, [])
+
+  return <>
+    {
+      !user ?
+        <Login />
+        :
+        <>
+          <Main />
+          <Button>Logout</Button>
+        </>
+    };
+  </>
 }

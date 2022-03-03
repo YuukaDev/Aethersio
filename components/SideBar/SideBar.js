@@ -21,7 +21,7 @@ import {
     Container,
 } from '@chakra-ui/react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../auth/firebase'
+import { auth } from '../../firebase/firebase'
 import { AddIcon } from "@chakra-ui/icons";
 import DarkMode from '../DarkMode/DarkMode';
 import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";

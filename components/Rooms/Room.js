@@ -11,7 +11,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../auth/firebase";
+import { auth } from "../../firebase/firebase";
 import { useRouter } from "next/router";
 import { Context } from "../../context";
 import ChatContent from "../ChatContent/ChatContent";

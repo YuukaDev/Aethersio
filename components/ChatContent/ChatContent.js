@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../auth/firebase";
+import { auth } from "../../firebase/firebase";
 import { ChatIcon } from "@chakra-ui/icons";
 
 function ChatContent({ socket, username, room }) {

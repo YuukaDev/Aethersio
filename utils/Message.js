@@ -1,12 +1,21 @@
 import { createContext, useReducer } from "react";
 
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase/firebase";
+
+const userCollection = collection(db, 'users');
+
 export const Store = createContext();
 const initialState = {
+    users: [],
 };
 
-function reducer(state, action) {
+async function reducer(state, action) {
     switch (action.type) {
-
+        case 'CREATE_USER':
+            return {
+                
+            }
     }
 }
 

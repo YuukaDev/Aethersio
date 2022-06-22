@@ -4,7 +4,7 @@ import { Box, Flex, Heading, Avatar, Icon, Button } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebase";
+import { auth } from "../../lib/firebase";
 
 
 

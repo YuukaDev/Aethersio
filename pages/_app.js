@@ -1,15 +1,14 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import customTheme from "../theme/theme";
-import { ContextProvider } from "../context";
-import "../styles/style.css";
+import { AetherProvider } from "../utils/StoreContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ContextProvider>
+    <AetherProvider>
       <ChakraProvider resetCSS theme={customTheme}>
         <Component {...pageProps} />
       </ChakraProvider>
-    </ContextProvider>
+    </AetherProvider>
   );
 }
 

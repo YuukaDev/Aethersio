@@ -1,28 +1,30 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 
-import Login from "../components/Login/Login";
 import Main from "../components/Main/Main";
+import { useRouter } from "next/router";
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../lib/firebase";
-import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { Context } from "../context";
+import { auth } from "../lib/firebase";
 import { Button } from "@chakra-ui/react";
+import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 export default function Home() {
-  const { handleLogout } = useContext(Context);
+  const router = useRouter();
   const [user] = useAuthState(auth);
 
-  return <>
-    {
-      !user ?
-        <Login />
-        :
-        <>
-          <Main />
-          <Button>Logout</Button>
-        </>
-    };
-  </>
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [])
+
+  console.log(user);
+
+  return (
+    <div>
+      <Main />
+      <Button onClick={() => signOut(auth)}>Logout</Button>
+    </div>
+  )
 }
 
 

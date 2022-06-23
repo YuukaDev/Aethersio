@@ -1,15 +1,20 @@
 export const initialState = {
   message: [],
-  user: [],
+  user: {
+    uid: "",
+    displayName: "",
+    email: "",
+    photoURL: "",
+  },
 };
 
 const shopReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case "SET_USER":
-      return { ...state, user: payload.user };
+      return { ...state, ...payload };
     case "SET_MESSAGE":
-      return { ...state, message: payload.message };
+      return { ...state, ...payload };
   }
 };
 

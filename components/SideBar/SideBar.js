@@ -8,17 +8,12 @@ import {
     PopoverContent,
     Box,
     Portal,
-    PopoverFooter,
     Icon,
     Avatar,
     Heading,
     Button,
     useColorMode,
-    IconButton,
     Input,
-    Grid,
-    HStack,
-    Container,
 } from '@chakra-ui/react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../lib/firebase'

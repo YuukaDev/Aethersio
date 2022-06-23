@@ -1,5 +1,4 @@
 import React, { useState, createContext } from "react";
-import { signInWithPopup, GithubAuthProvider, signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 

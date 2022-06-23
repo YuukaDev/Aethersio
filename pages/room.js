@@ -1,6 +1,6 @@
 import Main from "../components/Main/Main";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/firebase";
+import { auth } from "../lib/firebase";
 import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { Context } from "../context";

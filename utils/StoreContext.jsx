@@ -5,9 +5,11 @@ import db, { auth } from "../lib/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const ContextProvider = createContext(initialState);
+const DispatchContext = createContext();
 
 export const AetherProvider = ({ children }) => {
   const [state, dispatch] = useReducer(shopReducer, initialState);
+  const [user] = useAuthState(auth);
   const setUser = (payload) =>
     dispatch({ type: "SET_USER", payload: { user: payload } });
 
@@ -33,14 +35,16 @@ export const AetherProvider = ({ children }) => {
   };
 
   return (
-    <ContextProvider.Provider value={{ setUser, value }}>
-      {children}
-    </ContextProvider.Provider>
+    <DispatchContext.Provider value={{ setUser }}>
+      <ContextProvider.Provider value={value}>
+        {children}
+      </ContextProvider.Provider>
+    </DispatchContext.Provider>
   );
 };
 
 const useProvider = () => {
-  const context = useContext(ShopContext);
+  const context = useContext(ContextProvider);
 
   if (context === undefined) {
     throw new Error("useShop must be used within ShopContext");
@@ -50,3 +54,4 @@ const useProvider = () => {
 };
 
 export default useProvider;
+export const useDispatch = () => useContext(DispatchContext);

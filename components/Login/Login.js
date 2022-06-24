@@ -3,18 +3,15 @@ import { auth } from "../../lib/firebase";
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { FaGithub } from "react-icons/fa";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDispatch } from "../../utils/StoreContext";
 import { useRouter } from "next/router";
 
 function Login() {
-  const router = useRouter();
-  const { setUser } = useDispatch();
   const [user, loading] = useAuthState(auth);
 
   const handleLogin = async () => {
     try {
       const userData = await signInWithPopup(auth, new GithubAuthProvider());
-      setUser(userData);
+      return userData;
     } catch (err) {
       console.log(err);
     }

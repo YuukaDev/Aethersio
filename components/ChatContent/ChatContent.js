@@ -1,5 +1,4 @@
-import { useEffect, useContext } from "react";
-import { Context } from "../../context";
+import { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -14,20 +13,17 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase";
 import { ChatIcon } from "@chakra-ui/icons";
 
-function ChatContent({ socket, username, room }) {
+function ChatContent({ socket, room }) {
   const [user] = useAuthState(auth);
-  const {
-    currentMessage,
-    setCurrentMessage,
-    messageList,
-    setMessageList,
-  } = useContext(Context);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
         room: room,
-        author: username,
+        image: user.photoURL,
+        author: user?.reloadUserInfo.screenName,
         message: currentMessage,
         time: moment().format("MMM Do YY"),
       };
@@ -49,14 +45,14 @@ function ChatContent({ socket, username, room }) {
       <Box>
         {messageList.map((messageContent, index) => {
           return (
-            <Box color="#fff" mt="25px" key={index}>
+            <Box color="#fff" mt="35px" key={index}>
               <Box
                 gap="10px"
                 display="flex"
                 justifyContent="center"
                 alignContent="center"
               >
-                <Avatar src={user.photoURL} />
+                <Avatar src={messageContent.image} />
                 <Heading fontSize="1.5em">{messageContent.author}</Heading>
                 <Text fontSize="1.3em"> | </Text>
                 <Text fontSize="1.3em" as="samp">
@@ -65,7 +61,7 @@ function ChatContent({ socket, username, room }) {
               </Box>
               <Box>
                 <Flex justifyContent="left" alignItems="center" ml="60px">
-                  <Text textAlign="left" mt="-20px" fontSize="1.5em">
+                  <Text textAlign="left" fontSize="1.5em">
                     {messageContent.message}
                   </Text>
                 </Flex>

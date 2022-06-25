@@ -6,8 +6,6 @@ import { AddIcon } from "@chakra-ui/icons";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase";
 
-
-
 function UserProfile() {
   const [user] = useAuthState(auth);
   return (

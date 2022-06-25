@@ -1,17 +1,26 @@
 import { Button, HStack, CircularProgress, Box } from "@chakra-ui/react";
-import { auth } from "../../lib/firebase";
+
+import db, { auth } from "../../lib/firebase";
+import { addDoc, collection } from "firebase/firestore";
+
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
-import { FaGithub } from "react-icons/fa";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from "next/router";
+
+import { FaGithub } from "react-icons/fa";
 
 function Login() {
   const [user, loading] = useAuthState(auth);
 
-  const handleLogin = async () => {
+  const registerUser = async () => {
     try {
-      const userData = await signInWithPopup(auth, new GithubAuthProvider());
-      return userData;
+      const res = await signInWithPopup(auth, new GithubAuthProvider());
+      const user = res.user;
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        username: user.reloadUserInfo.screenName,
+        authProvider: "local",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -56,7 +65,7 @@ function Login() {
           if (user) {
             console.log("u are already logged in");
           } else {
-            handleLogin();
+            registerUser();
           }
         }}
       >

@@ -6,9 +6,9 @@ import SideBar from "../SideBar/SideBar";
 
 function Main() {
   return (
-    <Box>
+    <div>
       <SideBar />
-    </Box>
+    </div>
   );
 }
 

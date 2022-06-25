@@ -3,18 +3,18 @@ import Main from "../components/Main/Main";
 import Login from "../components/Login/Login";
 
 import { auth } from "../lib/firebase";
-import { Button } from "@chakra-ui/react";
-import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import useShop from "../utils/StoreContext";
 
 export default function Home() {
   const [user] = useAuthState(auth);
+  const { customer } = useShop();
+  console.log(customer);
   return (
     <div>
       {!user ? <Login /> :
         <>
           <Main />
-          <Button onClick={() => signOut(auth)}>Logout</Button>
         </>
       }
     </div>

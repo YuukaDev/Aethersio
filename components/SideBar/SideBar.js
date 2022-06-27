@@ -13,6 +13,7 @@ import {
     Avatar,
     Heading,
     Button,
+    Link,
     useColorMode,
     Input,
 } from '@chakra-ui/react'
@@ -25,6 +26,10 @@ import { BsFillGearFill, BsBoxArrowLeft, BsFillPeopleFill } from "react-icons/bs
 import io from "socket.io-client";
 import ChatContent from '../ChatContent/ChatContent';
 import { signOut } from 'firebase/auth';
+import Image from 'next/image';
+import cloudImage from "../../images/cloud.png";
+import githubImage from "../../images/github.png";
+import twitterImage from "../../images/twitter.png";
 const socket = io.connect("http://localhost:3001");
 
 export default function Sidebar() {
@@ -50,7 +55,9 @@ export default function Sidebar() {
                 width: 500,
             }}>
             {showRoom ?
-                <ChatContent socket={socket} username={user?.reloadUserInfo.screenName} room={room} />
+                <>
+                    <ChatContent socket={socket} username={user?.reloadUserInfo.screenName} room={room} />
+                </>
                 :
                 <Box
                     height="90vh"
@@ -59,6 +66,7 @@ export default function Sidebar() {
                     alignItems="center"
                     flexDir="column"
                 >
+                    <Image src={cloudImage} />
                     <Flex as="nav">
                         <Flex gap="10px" mt={5} alignItems="center">
                             <Avatar src={user?.photoURL} />
@@ -140,7 +148,7 @@ export default function Sidebar() {
                     </Box>
                 </Box>
             }
-        </div>
+        </div >
 
     )
 }

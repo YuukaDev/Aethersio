@@ -22,9 +22,9 @@ import { AddIcon } from "@chakra-ui/icons";
 import DarkMode from '../DarkMode/DarkMode';
 import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";
 import { BsFillGearFill, BsBoxArrowLeft, BsFillPeopleFill } from "react-icons/bs";
-import { useRouter } from 'next/router';
 import io from "socket.io-client";
 import ChatContent from '../ChatContent/ChatContent';
+import { signOut } from 'firebase/auth';
 const socket = io.connect("http://localhost:3001");
 
 export default function Sidebar() {
@@ -32,7 +32,6 @@ export default function Sidebar() {
     const [showRoom, setShowRoom] = useState(false);
     const { colorMode } = useColorMode();
     const [user] = useAuthState(auth);
-    const router = useRouter()
 
     const joinRoom = () => {
         if (user !== "" && room !== "") {
@@ -50,7 +49,9 @@ export default function Sidebar() {
                 padding: "35px",
                 width: 500,
             }}>
-            {showRoom ? <ChatContent socket={socket} username={user?.reloadUserInfo.screenName} room={room} /> :
+            {showRoom ?
+                <ChatContent socket={socket} username={user?.reloadUserInfo.screenName} room={room} />
+                :
                 <Box
                     height="90vh"
                     display="flex"
@@ -93,7 +94,7 @@ export default function Sidebar() {
                                                         </Button>
                                                     </Flex>
                                                     <Flex width="200px" float="left">
-                                                        <Button gap="10px" variant="ghost">
+                                                        <Button gap="10px" variant="ghost" onClick={() => signOut(auth)}>
                                                             <Icon variant="ghost" as={BsBoxArrowLeft} />
                                                             <Text size="xs">Logout</Text>
                                                         </Button>

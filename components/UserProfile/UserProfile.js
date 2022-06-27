@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Flex, Heading, Avatar, Icon, Button } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 

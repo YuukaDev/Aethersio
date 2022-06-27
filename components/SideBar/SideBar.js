@@ -60,7 +60,7 @@ export default function Sidebar() {
                 </>
                 :
                 <Box
-                    height="90vh"
+                    height="80vh"
                     display="flex"
                     justifyContent="center"
                     alignItems="center"

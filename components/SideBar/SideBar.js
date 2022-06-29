@@ -1,10 +1,13 @@
 import { useState } from 'react';
+
+import Image from 'next/image';
+import Link from "next/link";
+
 import {
     Flex,
     Popover,
     PopoverTrigger,
     PopoverBody,
-    PopoverArrow,
     Text,
     PopoverContent,
     Box,
@@ -13,37 +16,47 @@ import {
     Avatar,
     Heading,
     Button,
-    Link,
     useColorMode,
     Input,
+    useToast,
 } from '@chakra-ui/react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../lib/firebase'
 import { AddIcon } from "@chakra-ui/icons";
-import DarkMode from '../DarkMode/DarkMode';
-import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";
-import { BsFillGearFill, BsBoxArrowLeft, BsFillPeopleFill } from "react-icons/bs";
-import io from "socket.io-client";
-import ChatContent from '../ChatContent/ChatContent';
+
+import { auth } from '../../lib/firebase'
 import { signOut } from 'firebase/auth';
-import Image from 'next/image';
-import cloudImage from "../../images/cloud.png";
-import githubImage from "../../images/github.png";
-import twitterImage from "../../images/twitter.png";
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { HiDotsHorizontal, HiQuestionMarkCircle } from "react-icons/hi";
+import { BsFillGearFill, BsBoxArrowLeft, BsGithub, BsTwitter } from "react-icons/bs";
+
+import DarkMode from '../DarkMode/DarkMode';
+import ChatContent from '../ChatContent/ChatContent';
+
+import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");
+
+import cloudImage from "../../images/cloud.png";
 
 export default function Sidebar() {
     const [room, setRoom] = useState("");
     const [showRoom, setShowRoom] = useState(false);
     const { colorMode } = useColorMode();
     const [user] = useAuthState(auth);
+    const toast = useToast();
 
     const joinRoom = () => {
-        if (user !== "" && room !== "") {
+        if (room !== "") {
             socket.emit("join_room", room);
             socket.emit("create_room", room);
 
             setShowRoom(true);
+        } else {
+            toast({
+                title: "Room Is Required",
+                description: "Please enter a room name to continue",
+                status: "error",
+                duration: "3000",
+                isClosable: true,
+            })
         }
     };
 
@@ -85,28 +98,21 @@ export default function Sidebar() {
                                         </Button>
                                     </PopoverTrigger>
                                     <Portal>
-                                        <PopoverContent w="10rem" bg={colorMode === 'dark' ? "gray.800" : 'gray.200'}>
-                                            <PopoverArrow bg={colorMode === 'dark' ? "gray.800" : 'gray.200'} />
+                                        <PopoverContent _focus={{ border: "none" }} w="10rem" bg={colorMode === 'dark' ? "#18191c" : 'gray.200'}>
                                             <PopoverBody>
-                                                <Flex ml="-15px" flexDir="column">
-                                                    <Flex width="200px" float="left">
-                                                        <Button gap="10px" variant="ghost">
-                                                            <Icon variant="ghost" as={BsFillGearFill} />
-                                                            <Text size="xs">Preferences</Text>
-                                                        </Button>
-                                                    </Flex>
-                                                    <Flex width="200px" float="left">
-                                                        <Button gap="10px" variant="ghost">
-                                                            <Icon variant="ghost" as={HiQuestionMarkCircle} />
-                                                            <Text size="xs">Help</Text>
-                                                        </Button>
-                                                    </Flex>
-                                                    <Flex width="200px" float="left">
-                                                        <Button gap="10px" variant="ghost" onClick={() => signOut(auth)}>
-                                                            <Icon variant="ghost" as={BsBoxArrowLeft} />
-                                                            <Text size="xs">Logout</Text>
-                                                        </Button>
-                                                    </Flex>
+                                                <Flex flexDir="column" justifyContent="start" alignItems="start">
+                                                    <Button gap="10px" variant="ghost">
+                                                        <Icon variant="ghost" as={BsFillGearFill} />
+                                                        <Text size="xs">Preferences</Text>
+                                                    </Button>
+                                                    <Button gap="10px" variant="ghost">
+                                                        <Icon variant="ghost" as={HiQuestionMarkCircle} />
+                                                        <Text size="xs">Help</Text>
+                                                    </Button>
+                                                    <Button gap="10px" variant="ghost" onClick={() => signOut(auth)}>
+                                                        <Icon variant="ghost" as={BsBoxArrowLeft} />
+                                                        <Text size="xs">Logout</Text>
+                                                    </Button>
                                                 </Flex>
                                             </PopoverBody>
                                         </PopoverContent>
@@ -122,16 +128,21 @@ export default function Sidebar() {
                                         </Button>
                                     </PopoverTrigger>
                                     <Portal>
-                                        <PopoverContent w="10rem" bg={colorMode === 'dark' ? "gray.800" : 'gray.200'}>
-                                            <PopoverArrow />
+                                        <PopoverContent _focus={{ border: "none" }} w="10rem" bg={colorMode === 'dark' ? "#18191c" : 'gray.200'}>
                                             <PopoverBody>
-                                                <Flex ml="-15px" flexDir="column">
-                                                    <Flex width="200px" float="left">
+                                                <Flex flexDir="column" justifyContent="flex-start" alignItems="flex-start">
+                                                    <Link href="https://github.com/yuukadev">
                                                         <Button gap="10px" variant="ghost">
-                                                            <Icon variant="ghost" as={BsFillPeopleFill} />
-                                                            <Text size="xs">Public</Text>
+                                                            <Icon variant="ghost" as={BsGithub} />
+                                                            <Text size="xs">Github</Text>
                                                         </Button>
-                                                    </Flex>
+                                                    </Link>
+                                                    <Link href="https://twitter.com/yuukasuoh">
+                                                        <Button gap="10px" variant="ghost">
+                                                            <Icon variant="ghost" as={BsTwitter} />
+                                                            <Text size="xs">Twitter</Text>
+                                                        </Button>
+                                                    </Link>
                                                 </Flex>
                                             </PopoverBody>
                                         </PopoverContent>

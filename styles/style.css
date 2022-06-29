@@ -1,6 +1,10 @@
-*{
+* {
   padding: 0;
   margin: 0;
+}
+
+body {
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {

@@ -7,6 +7,7 @@ import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { FaGithub } from "react-icons/fa";
+import Spinner from "../Spinner/Spinner";
 
 function Login() {
   const [user, loading] = useAuthState(auth);
@@ -28,9 +29,7 @@ function Login() {
 
   if (loading) {
     return (
-      <Box height="95vh" display="flex" alignItems="center" justifyContent="center">
-        <CircularProgress size="10rem" isIndeterminate color='blue' />
-      </Box>
+      <Spinner />
     );
   }
 

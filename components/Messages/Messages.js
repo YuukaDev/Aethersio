@@ -1,9 +1,9 @@
 import { Flex, Box, Popover, PopoverContent, PopoverTrigger, PopoverHeader, PopoverBody, Avatar, AvatarBadge, Text, Divider, Tooltip, useColorMode } from "@chakra-ui/react"
 
-export const Messages = ({ author, image, displayName, tag, time, message, user, index }) => {
+export const Messages = ({ author, image, displayName, tag, time, message, user }) => {
     const { colorMode } = useColorMode();
     return (
-        <Flex key={index} w="2xl" flexDirection="column" p="3.5" px="6">
+        <Flex w="2xl" flexDirection="column" p="3.5" px="6">
             <Box>
                 <Flex py="10px" w="100%" justifyContent={{ sm: "start", lg: user.reloadUserInfo.screenName === author ? "start" : "end" }}>
                     <Popover>

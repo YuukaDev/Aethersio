@@ -63,7 +63,9 @@ function ChatContent({ socket, room }) {
         <Box height="2xl" w={{ sm: "md", lg: "3xl" }} maxH={{ sm: "3xl", lg: "2xl" }} bg={colorMode === "dark" ? "#32353b" : "gray.400"} borderRadius="lg" overflowY="scroll">
           {messageList.map((messageContent, index) => {
             return (
-              <Messages {...messageContent} index={index} user={user} />
+              <div key={index}>
+                <Messages {...messageContent} index={index} user={user} />
+              </div>
             );
           })}
         </Box>

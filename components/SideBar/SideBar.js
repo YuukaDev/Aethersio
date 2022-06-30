@@ -32,7 +32,7 @@ import DarkMode from '../DarkMode/DarkMode';
 import ChatContent from '../ChatContent/ChatContent';
 
 import io from "socket.io-client";
-const socket = io.connect("https://aethersio.vercel.app/");
+const socket = io.connect("http://localhost:3001");
 
 import cloudImage from "../../images/cloud.png";
 

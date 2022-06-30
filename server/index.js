@@ -9,7 +9,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://aethersio.netlify.app/",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
-});
+})
 
 server.listen(3000, () => {
   console.log("Server is Running");

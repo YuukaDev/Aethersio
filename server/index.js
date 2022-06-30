@@ -9,7 +9,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
@@ -32,8 +32,12 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
+});
+
+app.get("/", (req, res) => {
+  res.send("Websocket Server");
 })
 
-server.listen(3000, () => {
+server.listen(3001, () => {
   console.log("Server is Running");
 });

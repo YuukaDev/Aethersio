@@ -23,3 +23,4 @@ export default function EmojiPicker({ onEmojiClick, sendMessage }) {
         </Button>
     )
 }
+
